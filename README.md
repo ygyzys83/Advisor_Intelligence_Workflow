@@ -79,7 +79,6 @@ retrieved planning knowledge without replacing the authoritative snapshot.
 
 - [`case-study/CASE_STUDY.md`](case-study/CASE_STUDY.md): recruiter-facing case study
 - [`architecture/SYSTEM_ARCHITECTURE.md`](architecture/SYSTEM_ARCHITECTURE.md): system boundaries and workflow
-- [`demo/DEMO_SCRIPT.md`](demo/DEMO_SCRIPT.md): five-minute demonstration script
 - [`demo/GOLDEN_CLIENT_2.md`](demo/GOLDEN_CLIENT_2.md): fictional demonstration scenario
 - [`evidence/EVALUATION_RESULTS.md`](evidence/EVALUATION_RESULTS.md): evaluation methods and results
 - [`evidence/golden_client_2_summary.html`](evidence/golden_client_2_summary.html): visual benchmark summary

@@ -42,8 +42,9 @@ Coverage includes:
   output, and golden handoff
 
 Both repositories also run their test suites through GitHub Actions on pushes
-and pull requests to the main branches. Public CI links will be added when the
-portfolio package is published.
+and pull requests to the main branches. The implementation repositories and
+their CI run histories remain private; the machine-readable benchmark reports
+in this public repository provide inspectable evaluation evidence.
 
 ## Golden Cases
 
