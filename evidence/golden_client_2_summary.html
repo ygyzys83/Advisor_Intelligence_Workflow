@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Golden Client 2 Benchmark</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f4f6f8;
+      color: #17212b;
+      font-family: Arial, sans-serif;
+    }
+    main {
+      width: 1440px;
+      min-height: 900px;
+      padding: 54px 68px;
+      background: #f4f6f8;
+    }
+    .eyebrow {
+      color: #2563a6;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: 42px; margin: 0 0 12px; }
+    .subtitle { color: #526170; font-size: 21px; margin-bottom: 38px; }
+    .scores {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .score {
+      background: white;
+      border: 1px solid #d7dee5;
+      border-top: 5px solid #17845b;
+      border-radius: 6px;
+      padding: 22px;
+    }
+    .score strong { display: block; font-size: 34px; color: #126746; }
+    .score span { color: #526170; font-size: 15px; }
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    section {
+      background: white;
+      border: 1px solid #d7dee5;
+      border-radius: 6px;
+      padding: 26px 28px;
+    }
+    h2 { margin: 0 0 18px; font-size: 24px; }
+    ul { margin: 0; padding-left: 22px; }
+    li { margin: 11px 0; font-size: 17px; line-height: 1.35; }
+    .workflow {
+      display: grid;
+      grid-template-columns: 1fr 44px 1fr 44px 1fr;
+      align-items: center;
+      margin-top: 24px;
+    }
+    .step {
+      min-height: 112px;
+      padding: 18px;
+      border: 1px solid #b9c5d0;
+      border-radius: 6px;
+      background: #f9fbfc;
+    }
+    .step b { display: block; color: #1f5d91; margin-bottom: 8px; }
+    .arrow { text-align: center; font-size: 28px; color: #768594; }
+    footer {
+      margin-top: 26px;
+      color: #526170;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Advisor Intelligence Workflow</div>
+  <h1>Golden Client 2 Acceptance Benchmark</h1>
+  <div class="subtitle">A complex, eleven-document fictional household evaluated across extraction, reconciliation, approval, calculation, and privacy contracts.</div>
+
+  <div class="scores">
+    <div class="score"><strong>100%</strong><span>DRA facts</span></div>
+    <div class="score"><strong>100%</strong><span>DRA semantics and safety</span></div>
+    <div class="score"><strong>100%</strong><span>ArchitectAI planning inputs</span></div>
+    <div class="score"><strong>183</strong><span>Combined automated tests passing</span></div>
+  </div>
+
+  <div class="columns">
+    <section>
+      <h2>Authoritative Household Snapshot</h2>
+      <ul>
+        <li><b>$270,000</b> approved annual household income</li>
+        <li><b>$1,364,400</b> current listed financial accounts</li>
+        <li><b>$412,500</b> total liabilities</li>
+        <li><b>$1,731,900</b> calculated net worth</li>
+        <li>Transfers and refund preserved without income annualization</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Regression Protection</h2>
+      <ul>
+        <li>Detects duplicate-account and asset-overlap errors</li>
+        <li>Detects incorrect net-worth calculations</li>
+        <li>Detects PII leakage into the canonical profile</li>
+        <li>Detects unsafe cloud-processing state changes</li>
+        <li>Requires material planning gaps to be acknowledged</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="workflow">
+    <div class="step"><b>1. Document Review Agent</b>Builds a versioned, sanitized canonical profile from heterogeneous financial documents.</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step"><b>2. Advisor Review</b>Classifies ambiguous deposits, resolves overlapping totals, and acknowledges planning gaps.</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step"><b>3. ArchitectAI</b>Freezes authoritative calculations and grounds plan generation in approved facts.</div>
+  </div>
+
+  <footer>
+    <span>Benchmark version 2.0.0 | Profile schema 1.3.0</span>
+    <span>Fictional data only</span>
+  </footer>
+</main>
+</body>
+</html>

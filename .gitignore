@@ -1,0 +1,30 @@
+# IDE and local environments
+.idea/
+.vscode/
+.venv/
+venv/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary and generated files
+*.tmp
+*.temp
+*.log
+~$*
+
+# Private or sensitive materials
+private/
+client_data/
+*.env
+.env.*
+
+# Internal recruiting and packaging work
+PORTFOLIO_PACKAGING_WORKBOOK.md
+recruiting/
+
+# Large media and local exports
+demo/recordings/
+exports/
