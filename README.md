@@ -41,13 +41,18 @@ The flagship Golden Client 2 case moves eleven fictional documents through:
 3. Human classification of deposits, asset overlap, and planning gaps
 4. Approved-profile handoff between applications
 5. Deterministic calculation of core household totals
-6. Topic-specific financial-planning knowledge retrieval
+6. Governed, topic-specific financial-planning knowledge retrieval
 7. Guarded local-model generation and advisor review
 8. Local PDF creation
 
 The final approved snapshot contains \$1,364,400 in listed financial accounts
 and a calculated net worth of \$1,731,900. These are fictional demonstration
 figures, not client data.
+
+The same case also verifies structured career and business-owner facts,
+including executive compensation, restricted stock, deferred compensation,
+business ownership, and a personal guarantee. ArchitectAI activates specialty
+executive-planning retrieval only when those approved facts support it.
 
 ## Product Walkthrough
 
@@ -74,6 +79,9 @@ the profile can be approved.
 ArchitectAI calculates core financial totals from the approved profile in
 application code. The model explains those values and combines them with
 retrieved planning knowledge without replacing the authoritative snapshot.
+Knowledge sources are governed by authority, approved use, planning role, and
+review date; specialty sources remain excluded unless structured client facts
+activate them.
 
 ## Package Contents
 
@@ -83,6 +91,10 @@ retrieved planning knowledge without replacing the authoritative snapshot.
 - [`evidence/EVALUATION_RESULTS.md`](evidence/EVALUATION_RESULTS.md): evaluation methods and results
 - [`evidence/golden_client_2_summary.html`](evidence/golden_client_2_summary.html): visual benchmark summary
 - [`screenshots/`](screenshots/): product workflow and generated-plan evidence
+
+Current verified evidence: **149 DRA tests**, **62 ArchitectAI tests**, and
+**100% Golden Client 2 scores** at both the canonical-profile and approved
+handoff stages.
 
 ## Portfolio Positioning
 

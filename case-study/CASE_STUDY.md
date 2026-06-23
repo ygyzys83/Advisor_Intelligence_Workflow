@@ -314,13 +314,29 @@ rather than sending the entire knowledge library to the model.
 **Why:** Topic-specific retrieval reduces context size, improves relevance, and
 allows local models to generate structured outputs more reliably. It also
 supports different knowledge needs for retirement, tax, estate, investment,
-insurance, and behavioral-planning sections.
+insurance, and executive or entrepreneur planning sections.
 
 **Tradeoff:** Retrieval quality becomes its own product dependency. Relevant
 material can be missed, redundant chunks can be returned, and semantically
 similar text is not necessarily current or authoritative.
 
-### 10. Treat the Generated Plan as a Draft
+### 10. Govern Sources and Gate Specialty Retrieval
+
+**Decision:** Register planning sources by authority tier, approved use,
+planning role, topic, review status, and review date. Exclude specialty sources
+from ordinary retrieval and activate them only when approved structured client
+facts contain sufficient evidence.
+
+**Why:** A specialized planning text may be valuable for an executive or
+business owner but inappropriate for an ordinary household. Routing from
+generated recommendations would allow model prose to manufacture its own
+retrieval justification. Routing from the approved career and business-owner
+profile keeps the decision inspectable and deterministic.
+
+**Tradeoff:** The profile schema and evaluation set must represent the facts
+needed for routing, and specialty activation rules require regression tests.
+
+### 11. Treat the Generated Plan as a Draft
 
 **Decision:** Require advisor review before the final PDF is delivered.
 
@@ -441,9 +457,11 @@ product only by whether the final plan sounded plausible.
 8. **RAG and plan generation:** Does each section receive approved facts and
    relevant planning context without allowing retrieved material to override
    the household record?
-9. **Plan guardrails:** Are unsupported, outdated, absolute, or internally
+9. **Knowledge governance:** Are retrieved sources registered, approved for
+   the requested use, within their review window, and appropriately routed?
+10. **Plan guardrails:** Are unsupported, outdated, absolute, or internally
    referenced statements removed or qualified?
-10. **Presentation:** Does the final PDF remain readable, internally
+11. **Presentation:** Does the final PDF remain readable, internally
     consistent, and free from implementation artifacts?
 
 ### Golden Household Evaluation
@@ -452,7 +470,8 @@ Golden cases provide fictional source documents, expected facts, expected
 review decisions, and expected downstream planning inputs. The most complete
 case, Golden Client 2, represents a married household with eleven documents
 covering cash, retirement assets, brokerage assets, debt, insurance, estate
-planning, income, expenses, and goals.
+planning, income, expenses, goals, executive compensation, and business
+ownership.
 
 The automated golden handoff checks:
 
@@ -467,6 +486,8 @@ The automated golden handoff checks:
 - Cloud-processing restrictions
 - Sanitized source references
 - Frozen approved-snapshot integrity
+- Structured career and business-owner facts
+- Fact-supported executive specialty retrieval
 
 ### Failure-Driven Iteration
 
@@ -497,23 +518,37 @@ showcasing only successful outputs:
 - **Outdated or overbroad planning language:** RMD and beneficiary statements
   exposed the risk of relying on model memory. Guardrails were added, and a
   versioned regulatory-knowledge layer was identified as future work.
+- **Refund claimed by amount-less payroll evidence:** A generic payroll label
+  consumed the next unmatched deposit and incorrectly classified a tax refund.
+  Mixed-evidence statements now require exact amount matching.
+- **Specialty retrieval activated by generated prose:** Executive-planning
+  terms inside model recommendations could activate specialty material even
+  when structured career facts were removed. Routing now inspects the approved
+  career and business-owner domain only.
 
 ### RAG Evaluation Status
 
-The retrieval layer is functional but less mature than the profile-handoff
-evaluation. Current controls constrain retrieval to the planning knowledge
-collection and use a small top-k context for each CFP topic. The system retains
-source and page metadata, but the client plan does not expose a formal citation
-catalog.
+The retrieval layer now has an explicit governance registry and a small labeled
+evaluation set. Each source records authority tier, approved uses, planning
+role, topic coverage, review status, and review dates. Retrieval tests verify
+expected-source group recall, precision at k, reciprocal rank, source
+registration, governance status, authority requirements, and the absence of
+current-versus-superseded conflicts.
 
-The next evaluation phase should add:
+The current relevance cases cover professional standards, evergreen retirement
+planning, and executive concentrated-stock planning. All three pass with 100%
+expected-source group recall, 100% precision at k, and a 1.0 mean reciprocal
+rank.
 
-- A labeled question-to-source retrieval set
-- Recall-at-k and relevance scoring by planning topic
-- Tests for conflicting, stale, and duplicate knowledge
-- Source authority and effective-date metadata
-- Regression tests when embedding, chunking, or retrieval settings change
-- Plan checks that distinguish retrieved support from model prior knowledge
+The overall five-case evaluation remains intentionally incomplete. No
+authoritative current regulatory sources are registered, so current RMD-age
+and federal estate-tax exclusion questions fail governance checks instead of
+using educational textbooks as current law. This is a known content-governance
+gap and a successful safety behavior.
+
+The next evaluation phase should expand the labeled set, add expert relevance
+judgments across every plan topic, introduce authoritative current-rule
+sources, and regression-test embedding, chunking, and retrieval changes.
 
 ### What the Results Establish
 
@@ -538,18 +573,24 @@ married household with:
 - Two life-insurance policies
 - A revocable living trust
 - Household income, expenses, goals, and planning assumptions
+- A CFO role with restricted stock and deferred compensation
+- A managing-partner role with a 20% business interest
+- A \$75,000 personal guarantee
 
 This case was designed to create realistic cross-document questions rather than
 only test clean extraction. It includes overlapping asset information,
 unclassified statement deposits, high-interest debt, beneficiary and estate
 coordination issues, and facts distributed across multiple document types.
+It also tests whether specialty executive and entrepreneur knowledge is
+activated from structured client facts rather than from prompt keywords or
+generated recommendations.
 
 ### Profile-Building Result
 
 Document Review Agent processed the fictional document set into a versioned
 canonical profile containing household, income, expense, asset, liability,
-insurance, estate, goal, recommendation, source, confidence, and cloud-safety
-domains.
+insurance, estate, goal, career and business-owner, recommendation, source,
+confidence, and cloud-safety domains.
 
 ![DRA canonical profile showing schema version, source count, human-review status, and cloud-processing decision](../screenshots/dra_canonical_profile_summary.png)
 
@@ -608,6 +649,7 @@ workflow produced:
 - Consolidated recommendations and action plan
 - Illustrative charts
 - A locally generated PDF
+- Governed executive and entrepreneur specialty retrieval
 
 ![ArchitectAI configurable plan scope](../screenshots/architectai_plan_configuration.png)
 
@@ -650,11 +692,18 @@ defined fact or planning-input, semantic, and safety checks, including:
 - Cloud-processing restrictions
 - Sanitized source references
 - Detection of deliberate asset, PII, net-worth, and cloud-safety regressions
+- Preservation of executive-compensation and business-owner facts
+- Activation of specialty retrieval from approved structured facts
 
 The deterministic benchmark begins with the frozen canonical profile so it can
 run quickly and consistently in automated tests. The complete eleven-document
 extraction flow has also been exercised locally, but its live-model output is
 evaluated separately because generation can vary by model and runtime.
+
+The current DRA and ArchitectAI Golden Client 2 reports use benchmark version
+`2.1.0` and profile schema `1.4.0`; both score 100% across their defined
+categories. The current automated suites contain 149 passing DRA tests and 62
+passing ArchitectAI tests.
 
 ### Demonstrated Outcome
 
@@ -691,9 +740,9 @@ value is correct.
 
 ### Retrieval Quality and Knowledge Freshness
 
-ArchitectAI retrieves semantically relevant chunks, but it does not yet have a
-formal retrieval benchmark or authority-ranking system. The knowledge base may
-contain:
+ArchitectAI now has a source-governance registry and an initial retrieval
+benchmark, but the labeled set and authority coverage remain limited. The
+knowledge base may still contain:
 
 - Stale tax or retirement rules
 - Duplicate or conflicting sources
@@ -701,7 +750,8 @@ contain:
 - Relevant material that semantic retrieval fails to return
 
 Time-sensitive rules should not depend on the model's memory or an undated
-knowledge chunk.
+knowledge chunk. The current benchmark correctly fails current-rule cases
+because approved authoritative regulatory sources have not yet been added.
 
 ### Planning Depth
 
@@ -749,12 +799,13 @@ planning capacity.
 - Add OCR and scanned-PDF test cases
 - Compare local models against the same frozen evaluation set
 
-### 2. Evaluate and Govern the RAG Layer
+### 2. Expand RAG Evaluation and Source Coverage
 
-- Create a labeled planning question-to-source retrieval benchmark
-- Track recall-at-k and expert relevance by CFP topic
+- Expand the labeled planning question-to-source retrieval benchmark
+- Add expert relevance judgments by CFP topic
 - Detect duplicate, conflicting, and low-authority sources
-- Add document version, jurisdiction, effective date, and review metadata
+- Add authoritative current-rule sources with version, jurisdiction, effective
+  date, and review metadata
 - Regression-test chunking, embedding, and retrieval changes
 
 ### 3. Build a Versioned Regulatory Rules Layer

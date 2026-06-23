@@ -1,6 +1,6 @@
 {
-  "benchmark_version": "2.0.0",
-  "profile_schema_version": "1.3.0",
+  "benchmark_version": "2.1.0",
+  "profile_schema_version": "1.4.0",
   "scores": {
     "overall": 1.0,
     "planning_inputs": 1.0,
@@ -115,6 +115,35 @@
       "actual": 62.0
     },
     {
+      "category": "planning_inputs",
+      "name": "career_occupations",
+      "passed": true,
+      "expected": [
+        "chief financial officer"
+      ],
+      "actual": [
+        "chief financial officer"
+      ]
+    },
+    {
+      "category": "planning_inputs",
+      "name": "career_employment_roles",
+      "passed": true,
+      "expected": [
+        "managing partner"
+      ],
+      "actual": [
+        "managing partner"
+      ]
+    },
+    {
+      "category": "planning_inputs",
+      "name": "executive_specialty_activated",
+      "passed": true,
+      "expected": true,
+      "actual": true
+    },
+    {
       "category": "semantics",
       "name": "deposit_values",
       "passed": true,
@@ -174,14 +203,16 @@
         1,
         2,
         3,
-        4
+        4,
+        5
       ],
       "actual": [
         0,
         1,
         2,
         3,
-        4
+        4,
+        5
       ]
     },
     {

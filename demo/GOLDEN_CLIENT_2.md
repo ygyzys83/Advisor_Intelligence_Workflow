@@ -6,7 +6,9 @@ Golden Client 2 is the flagship fictional evaluation and demonstration case for 
 
 ## Household
 
-Complex married household with multiple account types, debts, insurance coverage, estate documents, cash-flow information, and long-term goals.
+Complex married household with multiple account types, debts, insurance
+coverage, estate documents, cash-flow information, executive compensation,
+business ownership, and long-term goals.
 
 ## Source Documents
 
@@ -20,6 +22,8 @@ Eleven fictional documents covering:
 - Life insurance
 - Living trust and estate information
 - Financial-planning facts and goals
+- Restricted stock and deferred compensation
+- A 20% business ownership interest and \$75,000 personal guarantee
 
 ## Expected Authoritative Snapshot
 
@@ -51,6 +55,7 @@ The exercised end-to-end workflow produced:
 - Topic-specific retrieval from the CFP knowledge base
 - A guarded financial-plan draft
 - A readable 17-page PDF
+- Fact-triggered executive and entrepreneur specialty retrieval
 
 Golden Client 2 is also a repeatable automated acceptance case. Document
 Review Agent scores the frozen canonical profile against expected household
@@ -58,9 +63,16 @@ facts, reconciliation semantics, and privacy requirements. ArchitectAI then
 applies the expected human resolutions and scores the approved handoff,
 authoritative calculations, and safety state.
 
-Both stages currently score 100% across their defined checks. The automated
+Both stages currently score 100% across their defined checks using benchmark
+version `2.1.0` and canonical profile schema `1.4.0`. The automated
 case starts from the frozen canonical profile; live extraction of all eleven
 documents remains a separate local-model evaluation.
+
+The benchmark also confirms that the structured profile preserves a chief
+financial officer role, a managing-partner role, \$240,000 of restricted
+stock, deferred compensation, a 20% business interest valued at \$350,000, and
+a \$75,000 personal guarantee. ArchitectAI activates specialty retrieval from
+those approved facts rather than from generated recommendations.
 
 Benchmark reports:
 

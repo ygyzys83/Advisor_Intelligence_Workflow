@@ -1,6 +1,6 @@
 {
-  "benchmark_version": "2.0.0",
-  "profile_schema_version": "1.3.0",
+  "benchmark_version": "2.1.0",
+  "profile_schema_version": "1.4.0",
   "scores": {
     "overall": 1.0,
     "facts": 1.0,
@@ -13,8 +13,8 @@
       "category": "facts",
       "name": "schema_version",
       "passed": true,
-      "expected": "1.3.0",
-      "actual": "1.3.0"
+      "expected": "1.4.0",
+      "actual": "1.4.0"
     },
     {
       "category": "facts",
@@ -36,6 +36,83 @@
       ],
       "actual": [
         12500.0
+      ]
+    },
+    {
+      "category": "facts",
+      "name": "occupations",
+      "passed": true,
+      "expected": [
+        "chief financial officer"
+      ],
+      "actual": [
+        "chief financial officer"
+      ]
+    },
+    {
+      "category": "facts",
+      "name": "employment_roles",
+      "passed": true,
+      "expected": [
+        "managing partner"
+      ],
+      "actual": [
+        "managing partner"
+      ]
+    },
+    {
+      "category": "facts",
+      "name": "compensation_arrangements",
+      "passed": true,
+      "expected": [
+        [
+          "deferred_compensation",
+          null
+        ],
+        [
+          "restricted_stock",
+          240000.0
+        ]
+      ],
+      "actual": [
+        [
+          "deferred_compensation",
+          null
+        ],
+        [
+          "restricted_stock",
+          240000.0
+        ]
+      ]
+    },
+    {
+      "category": "facts",
+      "name": "business_ownership_interests",
+      "passed": true,
+      "expected": [
+        [
+          "managing partner",
+          20.0,
+          350000.0
+        ]
+      ],
+      "actual": [
+        [
+          "managing partner",
+          20.0,
+          350000.0
+        ]
+      ]
+    },
+    {
+      "category": "facts",
+      "name": "personal_guarantees",
+      "passed": true,
+      "expected": [
+        75000.0
+      ],
+      "actual": [
+        75000.0
       ]
     },
     {
