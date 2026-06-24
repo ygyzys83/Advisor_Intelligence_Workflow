@@ -1,4 +1,4 @@
-# Advisor Intelligence Workflow
+﻿# Advisor Intelligence Workflow
 
 **From client documents to an advisor-approved financial plan**
 
@@ -21,6 +21,27 @@ are private. This public repository documents the integrated product
 architecture, design decisions, evaluation approach, fictional demonstration
 workflow, and resulting product evidence without exposing proprietary source
 code, prompts, or planning-knowledge materials.
+
+## Demo Video
+
+[Watch the Advisor Intelligence Workflow demo](https://youtu.be/tmrRFTL1RAQ)
+
+The 6:43 walkthrough shows the flagship Golden Client 2 case moving from
+fictional household documents to a privacy-protected canonical profile,
+advisor review and approval, grounded financial-plan generation, and benchmark
+evidence.
+
+**Chapters**
+
+- `0:00` Document Review Agent: 11-document canonical profile
+- `1:20` Governed profile handoff: schema, review state, and cloud-processing block
+- `2:00` ArchitectAI: profile import and review layer
+- `3:00` Advisor resolution: deposits, asset overlap, and planning gaps
+- `4:10` Plan generation and approved financial snapshot
+- `5:00` Benchmark evidence and regression checks
+- `6:00` Public portfolio package and private implementation repositories
+
+Sample output artifact: [Golden Client 2 financial plan PDF](demo/sample_financial_plan_golden_client_2.pdf)
 
 ## Product Thesis
 
@@ -45,8 +66,8 @@ The flagship Golden Client 2 case moves eleven fictional documents through:
 7. Guarded local-model generation and advisor review
 8. Local PDF creation
 
-The final approved snapshot contains \$1,364,400 in listed financial accounts
-and a calculated net worth of \$1,731,900. These are fictional demonstration
+The final approved snapshot contains $1,364,400 in listed financial accounts
+and a calculated net worth of $1,731,900. These are fictional demonstration
 figures, not client data.
 
 The same case also verifies structured career and business-owner facts,
@@ -88,6 +109,7 @@ activate them.
 - [`case-study/CASE_STUDY.md`](case-study/CASE_STUDY.md): recruiter-facing case study
 - [`architecture/SYSTEM_ARCHITECTURE.md`](architecture/SYSTEM_ARCHITECTURE.md): system boundaries and workflow
 - [`demo/GOLDEN_CLIENT_2.md`](demo/GOLDEN_CLIENT_2.md): fictional demonstration scenario
+- [`demo/sample_financial_plan_golden_client_2.pdf`](demo/sample_financial_plan_golden_client_2.pdf): sample generated plan output
 - [`evidence/EVALUATION_RESULTS.md`](evidence/EVALUATION_RESULTS.md): evaluation methods and results
 - [`evidence/golden_client_2_summary.html`](evidence/golden_client_2_summary.html): visual benchmark summary
 - [`screenshots/`](screenshots/): product workflow and generated-plan evidence
