@@ -8,9 +8,10 @@
 flowchart LR
     A["Household financial documents"] --> B["Document Review Agent"]
     B --> C["Canonical household profile"]
-    C --> D{"Advisor review<br/>and resolution"}
+    C --> T["Planning-gap triage queue"]
+    T --> D{"Advisor review<br/>and resolution"}
     D -->|Approved| E["Versioned profile handoff"]
-    E --> F["ArchitectAI"]
+    P --> F["ArchitectAI"]
     F --> G["Grounded financial plan"]
     G --> H{"Advisor final review"}
     H --> I["Client-ready PDF"]
@@ -43,10 +44,11 @@ flowchart LR
             C["Detect and redact PII"]
             D["Extract and reconcile facts"]
             E["Build canonical profile"]
-            B --> C --> D --> E
+            P["Generate planning-gap triage issues"]
+            B --> C --> D --> E --> P
         end
 
-        F{"Advisor resolves<br/>uncertainty"}
+        F{"Advisor resolves<br/>triaged uncertainty"}
 
         subgraph CONTRACT["Approved Profile Contract"]
             G["Versioned schema"]
@@ -118,7 +120,7 @@ flowchart LR
 
 ### Canonical Profile
 
-- The handoff contains structured facts, metadata, planning gaps, and source references.
+- The handoff contains structured facts, metadata, planning gaps, triage issues, and source references.
 - Schema `1.4.0` carries structured career, executive-compensation,
   business-ownership, and personal-guarantee facts.
 - It explicitly communicates whether protected PII was detected and whether cloud processing is allowed.
@@ -143,6 +145,7 @@ flowchart LR
 | Document classification | Automated, reviewable | Efficient routing with recoverable failure |
 | PII detection and redaction | Automated policy | Consistent enforcement before model processing |
 | Fact extraction | Local LLM plus schema validation | Handles varied language while constraining output |
+| Planning-gap triage | Deterministic issue queue | Converts unresolved facts into reviewable advisor actions |
 | Deposit classification | Human | A transaction amount alone does not establish income |
 | Asset overlap resolution | Human | Requires understanding how statements and totals relate |
 | Core financial totals | Deterministic application logic | Arithmetic should not depend on language-model judgment |
@@ -188,7 +191,8 @@ flowchart LR
 - Convert unstructured documents into structured, reviewable household facts
 - Protect PII and communicate processing restrictions
 - Surface uncertainty instead of silently filling gaps
-- Produce a reusable canonical profile
+- Route unresolved facts into a planning-gap triage queue
+- Produce a reusable canonical profile and structured planning-gap issue queue
 
 ### Shared Profile Contract
 

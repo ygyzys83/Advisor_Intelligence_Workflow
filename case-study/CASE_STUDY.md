@@ -16,8 +16,9 @@ reduce that preparation burden without removing professional judgment. The
 system connects two applications:
 
 - **Document Review Agent** classifies financial documents, detects and redacts
-  PII, extracts structured facts, reconciles information across documents, and
-  produces a versioned canonical household profile.
+  PII, extracts structured facts, reconciles information across documents,
+  produces a versioned canonical household profile, and routes unresolved
+  planning gaps into a structured advisor-review queue.
 - **ArchitectAI** accepts only the reviewed profile, freezes an authoritative
   financial snapshot, retrieves relevant CFP and financial-planning knowledge,
   applies deterministic calculations and planning guardrails, and uses a local
@@ -26,16 +27,16 @@ system connects two applications:
 The central product decision was to place a human approval layer between
 document extraction and plan generation. Ambiguous deposits, overlapping asset
 totals, missing beneficiary information, and other material uncertainties are
-surfaced for resolution rather than silently converted into advice. Language
+surfaced as structured triage issues rather than silently converted into advice. Language
 models interpret varied documents and draft explanations; application logic
 enforces schemas, privacy policy, calculations, and approval state; the advisor
 remains accountable for the final result.
 
 The prototype demonstrates an end-to-end AI product workflow rather than an
 isolated model feature. It includes a shared schema contract, local-first PII
-controls, structured human review, golden household evaluations, automated
-tests and CI, failure-driven iteration, grounded generation, and client-facing
-output validation.
+controls, structured human review, an agentic planning-gap triage loop, golden
+household evaluations, automated tests and CI, failure-driven iteration,
+grounded generation, and client-facing output validation.
 
 This case study demonstrates my ability to translate a complex professional
 workflow into product requirements, make explicit decisions about model and
@@ -104,7 +105,8 @@ The resulting product strategy follows five principles:
 1. **Structure before advice.** Convert source documents into a consistent
    household data model before generating recommendations.
 2. **Surface uncertainty.** Missing, conflicting, or ambiguous information
-   should create a review task rather than a silent assumption.
+   should create a review task rather than a silent assumption. The review task
+   should be structured enough to route, resolve, and test.
 3. **Separate responsibilities.** Use language models for interpretation and
    communication, deterministic code for calculations and policy enforcement,
    and humans for material judgment.
@@ -123,6 +125,7 @@ The prototype focuses on the complete discovery-to-draft workflow:
 - Ingest heterogeneous financial and planning documents
 - Extract and normalize household facts
 - Detect PII, conflicts, uncertainty, risks, and missing information
+- Route unresolved profile facts into structured triage issues
 - Build a canonical profile with source and review metadata
 - Require resolution of material planning questions
 - Create an approved, versioned profile handoff
@@ -168,8 +171,8 @@ contract.
 
 **Document Review Agent** owns the uncertain source-document stage. It parses
 and classifies files, detects and redacts PII, routes documents to structured
-extraction schemas, reconciles information across sources, and builds the
-canonical profile.
+extraction schemas, reconciles information across sources, builds the
+canonical profile, and creates a planning-gap triage queue for advisor review.
 
 **ArchitectAI** owns the approved planning stage. It validates the imported
 profile, applies human resolutions, freezes an authoritative household
@@ -379,6 +382,7 @@ artifact needed for planning:
 - Structured and normalized facts
 - Confidence and redaction metadata
 - Planning gaps and review requirements
+- Structured triage issues with evidence, route recommendations, and advisor decision state
 - Sanitized source references
 - Cloud-processing and human-review decisions
 
@@ -398,6 +402,11 @@ resolve reliably:
 - Whether insurance and estate-planning gaps have been understood
 - Whether a profile is ready to become an approved planning input
 - Whether the generated plan is appropriate for client delivery
+
+DRA now packages these unresolved items as a structured planning-gap issue
+queue. Each issue can include evidence, why-it-matters text, a proposed advisor
+question, a recommended route such as `advisor_review` or `needs_client_input`,
+and advisor decision state.
 
 ArchitectAI records the review resolution separately from the imported
 canonical profile. This preserves the original DRA artifact and makes the
@@ -450,7 +459,8 @@ product only by whether the final plan sounded plausible.
    household domains without double counting or unsupported inference?
 5. **Shared-contract validation:** Can ArchitectAI reject incompatible,
    unsanitized, or incomplete profile artifacts?
-6. **Human-resolution behavior:** Do advisor decisions change the planning view
+6. **Planning-gap triage and human resolution:** Are material uncertainties routed
+   into reviewable issues, and do advisor decisions change the planning view
    without mutating the source profile?
 7. **Authoritative snapshot calculations:** Are income, expenses, assets,
    liabilities, cash flow, and net worth computed reproducibly?
@@ -589,8 +599,8 @@ generated recommendations.
 
 Document Review Agent processed the fictional document set into a versioned
 canonical profile containing household, income, expense, asset, liability,
-insurance, estate, goal, career and business-owner, recommendation, source,
-confidence, and cloud-safety domains.
+insurance, estate, goal, career and business-owner, recommendation, planning-gap
+triage, source, confidence, and cloud-safety domains.
 
 ![DRA canonical profile showing schema version, source count, human-review status, and cloud-processing decision](../screenshots/dra_canonical_profile_summary.png)
 
@@ -598,8 +608,9 @@ confidence, and cloud-safety domains.
 metadata as a newly generated export without rerunning the source documents or
 calling an LLM.*
 
-The workflow surfaced review items instead of resolving them silently. The
-advisor review layer was used to:
+The workflow surfaced review items instead of resolving them silently. DRA now
+also represents those unresolved items as a machine-readable planning-gap issue
+queue before downstream planning. The advisor review layer was used to:
 
 - Ignore an overlapping reported asset total and use the listed accounts
 - Classify three statement deposits as transfers or a refund rather than income
@@ -702,7 +713,7 @@ evaluated separately because generation can vary by model and runtime.
 
 The current DRA and ArchitectAI Golden Client 2 reports use benchmark version
 `2.1.0` and profile schema `1.4.0`; both score 100% across their defined
-categories. The current automated suites contain 149 passing DRA tests and 62
+categories. The current automated suites contain 153 passing DRA tests and 62
 passing ArchitectAI tests.
 
 ### Demonstrated Outcome
@@ -826,6 +837,7 @@ expired or overdue regulatory records.
 - Add page-level evidence views for material facts
 - Make conflicts, confidence, and document dates easier to compare
 - Support approve, correct, defer, and request-document workflows
+- Persist planning-gap triage decisions server-side and rerun validation after resolution
 - Preserve a clear change history between imported, resolved, and approved
   profiles
 - Add a single integrated case workspace across both applications
@@ -877,14 +889,14 @@ product builder.
 - Separated client facts, retrieved planning knowledge, deterministic
   calculations, and model-generated narrative
 - Designed local/cloud processing policy and approved-profile enforcement
-- Defined the authoritative snapshot and review-resolution workflow
+- Defined the authoritative snapshot, planning-gap triage loop, and review-resolution workflow
 
 ### Hands-On Implementation
 
 - Built the Python, FastAPI, Streamlit, Pydantic, Ollama, Presidio, Chroma, and
   PDF-generation workflows
-- Implemented structured extraction, profile mapping, approval artifacts, RAG,
-  plan generation, validation, and client-facing output
+- Implemented structured extraction, profile mapping, planning-gap triage,
+  approval artifacts, RAG, plan generation, validation, and client-facing output
 - Created fictional documents and golden household scenarios
 - Added automated tests, CI, scripts, and evaluation reports
 

@@ -5,13 +5,13 @@
 Advisor Intelligence Workflow is an integrated, human-supervised AI product
 that connects:
 
-- **Document Review Agent (DRA):** extracts, normalizes, protects, and reconciles facts from financial documents into a canonical household profile.
+- **Document Review Agent (DRA):** extracts, normalizes, protects, reconciles facts, and routes planning gaps from financial documents into a canonical household profile and structured advisor-review queue.
 - **ArchitectAI:** validates the approved profile, calculates an authoritative
   financial snapshot, retrieves topic-specific CFP knowledge, and generates a
   grounded financial-plan draft for advisor review.
 
 The system is designed around privacy, explicit uncertainty, human approval,
-structured handoffs, retrieval-augmented generation, deterministic
+structured handoffs, agentic planning-gap triage, retrieval-augmented generation, deterministic
 calculations, and model-independent plan generation.
 
 ## Repository Scope
@@ -33,7 +33,7 @@ evidence.
 
 **Chapters**
 
-- `0:00` Document Review Agent: 11-document canonical profile
+- `0:00` Document Review Agent: 11-document canonical profile and planning-gap triage queue
 - `1:20` Governed profile handoff: schema, review state, and cloud-processing block
 - `2:00` ArchitectAI: profile import and review layer
 - `3:00` Advisor resolution: deposits, asset overlap, and planning gaps
@@ -59,7 +59,7 @@ The flagship Golden Client 2 case moves eleven fictional documents through:
 
 1. Local parsing, PII protection, and structured extraction
 2. Cross-document reconciliation and canonical profile construction
-3. Human classification of deposits, asset overlap, and planning gaps
+3. Structured planning-gap triage plus human classification of deposits, asset overlap, and review items
 4. Approved-profile handoff between applications
 5. Deterministic calculation of core household totals
 6. Governed, topic-specific financial-planning knowledge retrieval
@@ -82,16 +82,16 @@ executive-planning retrieval only when those approved facts support it.
 ![Document Review Agent canonical profile summary](screenshots/dra_canonical_profile_summary.png)
 
 Document Review Agent produces a schema-versioned profile from eleven
-fictional source documents, keeps material review requirements visible, and
-blocks cloud processing when protected PII is present.
+fictional source documents, keeps material review requirements visible, creates
+a structured planning-gap triage queue, and blocks cloud processing when protected PII is present.
 
 ### 2. Resolve Ambiguity Before Generation
 
 ![ArchitectAI profile review](screenshots/architectai_profile_review.png)
 
 The advisor confirms household facts, resolves overlapping asset totals,
-classifies ambiguous deposits, and acknowledges material planning gaps before
-the profile can be approved.
+classifies ambiguous deposits, and works through triaged planning-gap issues
+before the profile can be approved.
 
 ### 3. Generate From Approved Facts
 
@@ -114,15 +114,16 @@ activate them.
 - [`evidence/golden_client_2_summary.html`](evidence/golden_client_2_summary.html): visual benchmark summary
 - [`screenshots/`](screenshots/): product workflow and generated-plan evidence
 
-Current verified evidence: **149 DRA tests**, **62 ArchitectAI tests**, and
+Current verified evidence: **153 DRA tests**, **62 ArchitectAI tests**, and
 **100% Golden Client 2 scores** at both the canonical-profile and approved
 handoff stages.
 
 ## Portfolio Positioning
 
 > An advisor-controlled AI workflow that transforms heterogeneous financial
-> documents into a verified household profile and uses approved facts plus
-> retrieved planning knowledge to generate a grounded financial-plan draft.
+> documents into a verified household profile, routes unresolved planning gaps
+> through a structured review queue, and uses approved facts plus retrieved
+> planning knowledge to generate a grounded financial-plan draft.
 
 ## Current Boundary
 

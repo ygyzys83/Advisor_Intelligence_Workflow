@@ -6,7 +6,7 @@ documents.
 
 | File | Demonstrated product behavior |
 |---|---|
-| `dra_canonical_profile_summary.png` | Versioned profile, source count, human-review status, and cloud-safety decision |
+| `dra_canonical_profile_summary.png` | Versioned profile, source count, human-review status, cloud-safety decision, and upstream triage context |
 | `architectai_profile_review.png` | Human resolution of ambiguous facts, deposits, overlap, and planning gaps |
 | `architectai_profile_approval.png` | Frozen approval record with identifier and timestamp |
 | `architectai_plan_configuration.png` | Advisor-controlled plan scope |

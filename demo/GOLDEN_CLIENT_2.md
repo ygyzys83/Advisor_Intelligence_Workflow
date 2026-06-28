@@ -44,12 +44,14 @@ Eleven fictional documents covering:
 - Preserve payroll deposits as income evidence without annualizing them
 - Confirm current and retirement ages
 - Acknowledge material insurance, estate, debt, and account-overlap warnings
+- Route unresolved items through approve, reject, defer, advisor-review, or needs-client-input states
 
 ## Demonstrated Result
 
 The exercised end-to-end workflow produced:
 
 - A schema-versioned canonical profile
+- A structured DRA planning-gap triage queue
 - An explicit advisor-resolution overlay
 - An approved authoritative snapshot
 - Topic-specific retrieval from the CFP knowledge base

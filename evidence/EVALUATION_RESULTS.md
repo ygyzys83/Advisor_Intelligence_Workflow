@@ -22,13 +22,13 @@ The system is evaluated at multiple layers rather than treating a plausible fina
 Both component repositories run automated tests through GitHub Actions on
 Python 3.12.
 
-Verified locally on June 22, 2026:
+Verified locally on June 27, 2026:
 
 | Application | Result | Runtime |
 |---|---:|---:|
-| Document Review Agent | 149 passed, 1 warning | 2.35 seconds |
+| Document Review Agent | 153 passed, 1 warning | 3.39 seconds |
 | ArchitectAI | 62 passed, 2 warnings | 6.57 seconds |
-| **Combined** | **211 passed** | **8.92 seconds** |
+| **Combined** | **215 passed** | **9.96 seconds** |
 
 The warnings did not fail either test suite. Warning details should be reviewed
 again before publication and after dependency upgrades.
@@ -36,7 +36,7 @@ again before publication and after dependency upgrades.
 Coverage includes:
 
 - **Document Review Agent:** parsing, extraction, PII policy, profile mapping,
-  export contracts, shared schemas, career and business-owner facts, and
+  planning-gap triage, export contracts, shared schemas, career and business-owner facts, and
   golden evaluation
 - **ArchitectAI:** profile import, schema validation, resolution overlays,
   approved snapshots, deterministic planning inputs, plan guardrails, PDF
@@ -80,7 +80,7 @@ Golden Client 2 uses eleven fictional documents for a complex married
 household. Its saved canonical profile and approved-profile handoff now have
 repeatable automated acceptance benchmarks covering repeated monthly
 accounts, transfers, a tax refund, overlapping asset totals, explicit
-high-interest debt, insurance-beneficiary issues, trust-funding review,
+high-interest debt, structured planning-gap triage behavior, insurance-beneficiary issues, trust-funding review,
 executive compensation, business ownership, and a personal guarantee.
 
 The approved snapshot contains:
@@ -101,7 +101,7 @@ alter asset balances, net worth, PII, and cloud-safety state to confirm that
 the benchmark fails when these contracts are violated.
 
 The current reports use benchmark version `2.1.0` and canonical profile schema
-`1.4.0`. They also verify the CFO and managing-partner roles, restricted stock,
+`1.4.0`. The DRA test suite also verifies the new structured planning-gap triage queue. The reports verify the CFO and managing-partner roles, restricted stock,
 deferred compensation, business ownership, personal-guarantee facts, and
 fact-triggered executive specialty retrieval.
 
@@ -130,6 +130,7 @@ model-dependent evaluation rather than a CI requirement.
   evidence now takes precedence when a statement contains mixed evidence.
 - Specialty retrieval initially scanned generated recommendations; routing now
   uses structured career and business-owner facts.
+- Planning gaps were visible but not yet packaged as reviewable workflow tasks; DRA now creates structured triage issues with evidence, recommended routes, and advisor decision state.
 
 Each failure produced a domain rule, schema change, review requirement,
 guardrail, or regression test.
